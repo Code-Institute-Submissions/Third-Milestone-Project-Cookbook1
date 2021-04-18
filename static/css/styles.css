@@ -553,6 +553,14 @@ pre code {
   margin-left: auto;
 }
 
+.category-icons {
+    display: inline-block;
+    height: 10em;
+    position: relative;
+    width: 10em;
+
+}
+
 @media (min-width: 576px) {
   .container-sm, .container {
     max-width: 540px;
