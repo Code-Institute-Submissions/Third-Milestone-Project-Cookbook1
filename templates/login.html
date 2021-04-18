@@ -1,1 +1,30 @@
 {% extends "base.html" %}
+{% block content %}
+
+<div class="card text-center col-8 offset-2">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="#">Sign In</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{  url_for('register')  }}">Register</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <div class="form-floating mb-3">
+  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+  <label for="floatingInput">Email address</label>
+</div>
+<div class="form-floating">
+  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+  <label for="floatingPassword">Password</label>
+</div>
+    <a href="#" class="btn btn-primary">Log In</a>
+  </div>
+</div>
+            
+
+{% endblock %}
