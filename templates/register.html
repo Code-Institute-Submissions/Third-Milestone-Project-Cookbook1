@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="card text-center col-8 offset-2">
+<h3 class="text-center">Register</h3>
+
+<div class="card text-center col-8 offset-2" method="POST" action="{{  url_for('register')  }}">
+    <div class="form-container container">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -13,13 +16,12 @@
     </ul>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
     <div class="form-floating mb-3">
-  <input type="text" class="form-control" id="registerUsername" placeholder="Username">
+  <input type="text" class="form-control" id="registerUsername" name="registerUsername" placeholder="Username">
   <label for="registerUsername">Username</label>
 </div>
 <div class="form-floating">
-  <input type="password" class="form-control" id="regisetrPassword" placeholder="Password">
+  <input type="password" class="form-control" id="regisetrPassword" name="regisetrPassword" placeholder="Password">
   <label for="regisetrPassword">Password</label>
 </div>
 <div class="form-floating">
@@ -28,6 +30,7 @@
 </div>
     <a href="#" class="btn btn-primary">Register</a>
   </div>
+</div>
 </div>
             
 
