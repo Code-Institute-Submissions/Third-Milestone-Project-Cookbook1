@@ -29,9 +29,18 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    return render_template("register.html")
+class RegistrationForm(FlaskForm):
+    username = TextField('Username', [validators.Lenght(min = 5, max = 15) ]
+
+    @app.route("/register", methods=["GET", "POST"])
+    def register():
+        if request.method == "POST":
+            existing_user = mongo.db.users.find_one(
+                {"username": request.form.get("username").lower()})
+
+            if existing_user:
+                flash("Sorry, this username is already take")
+        return render_template("register.html")
     
 
 if __name__ == "__main__":
