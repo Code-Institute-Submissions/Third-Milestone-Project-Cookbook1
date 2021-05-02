@@ -3,7 +3,7 @@
 
 <h3 class="text-center">Sign In</h3>
 
-<div class="card text-center col-8 offset-2 method="POST" action="{{  url_for('login')  }}">
+<div class="card text-center col-8 offset-2" method="POST" action="{{  url_for('login')  }}">
     <div class="form-container container">
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
@@ -18,12 +18,12 @@
     <div class="card-body">
         
         <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="loginInput" name="loginInput" placeholder="Username">
-    <label for="loginInput">Email address</label>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+    <label for="username">Email address</label>
     </div>
     <div class="form-floating">
-    <input type="password" class="form-control" id="loginPassword" name="loginPasswor" placeholder="Password">
-    <label for="loginPasswor">Password</label>
+    <input type="password" class="form-control" id="UserPassword" name="UserPassword" placeholder="Password">
+    <label for="UserPassword">Password</label>
     </div>
         <a href="#" class="btn btn-primary">Log In</a>
     </div>

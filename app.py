@@ -29,19 +29,38 @@ def login():
     return render_template("login.html")
 
 
-class RegistrationForm(FlaskForm):
-    username = TextField('Username', [validators.Lenght(min = 5, max = 15) ]
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        exicting_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
 
-    @app.route("/register", methods=["GET", "POST"])
-    def register():
-        if request.method == "POST":
-            existing_user = mongo.db.users.find_one(
-                {"username": request.form.get("username").lower()})
+        if existing_user:
+            flash("This username already excist. Please choose another name!")
+            return redirect(url_for("register"))
 
-            if existing_user:
-                flash("Sorry, this username is already take")
-        return render_template("register.html")
-    
+        # password comfirmation
+        def comfirm_password(register):
+            password = request.form.get("password"),
+            password2 = request.form.get("password2")
+
+            if password != password2:
+                flash("Password must match!")
+            return password2
+
+        # registration
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password")),
+            "password2": generate_password_hash(request.form.get("password2"))
+        }  
+        mongo.db.users.insert_one(register)
+
+        # put the user into session cookie
+        session["user"] = request.form.get("username").lower()
+        flash("Registration was seccessful! Welcome to the community!")
+    return render_template("register.html")
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

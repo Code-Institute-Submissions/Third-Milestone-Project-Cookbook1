@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- Register header -->
 <h3 class="text-center">Register</h3>
-
+<!-- Register card-->
 <div class="card text-center col-8 offset-2" method="POST" action="{{  url_for('register')  }}">
     <div class="form-container container">
   <div class="card-header">
@@ -15,19 +16,23 @@
       </li>
     </ul>
   </div>
+  <!-- Register body -->
   <div class="card-body">
     <div class="form-floating mb-3">
-  <input type="text" class="form-control" id="registerUsername" name="registerUsername" placeholder="Username">
-  <label for="registerUsername">Username</label>
+  <input type="text" class="form-control" id="username" name="username" minlength="5" maxlength="10" placeholder="Username">
+  <label for="username">Username</label>
 </div>
+<!-- Register password field -->
 <div class="form-floating">
-  <input type="password" class="form-control" id="regisetrPassword" name="regisetrPassword" placeholder="Password">
-  <label for="regisetrPassword">Password</label>
+  <input type="password" class="form-control" id="password" name="password" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5" maxlength="10" required  placeholder="Password">
+  <label for="password">Password</label>
 </div>
+<!-- Register password confirmation -->
 <div class="form-floating">
-  <input type="password" class="form-control" id="reenterPassword" placeholder="Reenetr Password">
-  <label for="reenterPassword" >Password</label>
+  <input type="password" class="form-control" id="password2" name="password2" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5" maxlength="10" required placeholder="Re-enetr Password">
+  <label for="password2" > Re-enter Password</label>
 </div>
+<!-- Register button -->
     <a href="#" class="btn btn-primary">Register</a>
   </div>
 </div>
