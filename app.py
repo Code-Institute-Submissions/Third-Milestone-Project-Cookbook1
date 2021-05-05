@@ -1,4 +1,5 @@
 import os
+from forms import RegistrationForm, LoginForm
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -26,10 +27,12 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    form = RegistrationForm(request.form)
+    # check for excisting user
     if request.method == "POST":
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
-
+       
         if existing_user:
             flash("This username already excist. Please choose another name!")
             return redirect(url_for("register"))
@@ -47,25 +50,25 @@ def register():
         register = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
-            "password2": generate_password_hash(request.form.get("password2"))
-        }  
+            "password2": generate_password_hash(request.form.get("password2"))}
         mongo.db.users.insert_one(register)
 
         # put the user into session cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration was seccessful! Welcome to the community!")
-    return render_template("register.html")
+    return render_template("register.html", title='Register', form=form)
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    form = LoginForm(request.form)
     if request.method == "POST":
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
         if existing_user:
             if check_password_hash(
-                existing_user["password"], request.form.get("password")):
+             existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username".lower())
                 flash("Hi {}".format(request.form.get("username")))
             else:
@@ -77,10 +80,11 @@ def login():
             flash("Incorrect Username and/or Password, please try again!")
             return redirect("login.html")
 
-    return render_template("login.html")
+    return render_template("login.html", title='Login', form=form)
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)      
+            debug=True)
+            
