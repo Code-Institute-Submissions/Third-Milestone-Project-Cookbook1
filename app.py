@@ -28,34 +28,28 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm(request.form)
-    # check for excisting user
-    if request.method == "POST":
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
-       
-        if existing_user:
-            flash("This username already excist. Please choose another name!")
-            return redirect(url_for("register"))
+    # validate on submit
+    if form.validate_on_submit():
 
-        # password comfirmation
-        def comfirm_password(register):
-            password = request.form.get("password"),
-            password2 = request.form.get("password2")
+        # check for excisting user
+        if request.method == "POST":
+            existing_user = mongo.db.users.find_one(
+                {"username": request.form.get("username").lower()})
 
-            if password != password2:
-                flash("Password must match!")
-            return password2
+            if existing_user:
+                flash("This username already excist. Please choose another name!")
+                return redirect(url_for("register"))
 
-        # registration
-        register = {
-            "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password")),
-            "password2": generate_password_hash(request.form.get("password2"))}
-        mongo.db.users.insert_one(register)
+            # registration
+            register = {
+                "username": request.form.get("username").lower(),
+                "password": generate_password_hash(request.form.get("password")),
+                "password2": generate_password_hash(request.form.get("confirm_password"))}
+            mongo.db.users.insert_one(register)
 
-        # put the user into session cookie
-        session["user"] = request.form.get("username").lower()
-        flash("Registration was seccessful! Welcome to the community!")
+            # put the user into session cookie
+            session["user"] = request.form.get("username").lower()
+            flash('Registration was seccessful! Welcome to the community {{ form.username.data }}!')
     return render_template("register.html", title='Register', form=form)
 
 
@@ -70,7 +64,7 @@ def login():
             if check_password_hash(
              existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username".lower())
-                flash("Hi {}".format(request.form.get("username")))
+                flash("Hi {{ form.username.data }}!")
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password, please try again!")
