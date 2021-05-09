@@ -19,7 +19,8 @@
         <!-- Register body -->
 
         <div class="card-body">
-            <form method="POST" action="">
+            <form method="post" action="">
+                {{ form.csrf_token }}
                 <div class="form-floating mb-3">
                     {{ form.username.label(class="form-control-label") }}
                     {{ form.username(class="form-control form-control-md") }}
