@@ -4,7 +4,7 @@
 <!-- Register header -->
 <h3 class="text-center">Register</h3>
 <!-- Register card-->
-<div class="card text-center col-8 offset-2" method="POST" action="{{  url_for('register')  }}">
+<form class="card text-center col-8 offset-2" method="POST" action="{{  url_for('register')  }}">
     <div class="form-container container">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -22,25 +22,35 @@
             <div class="form-floating mb-3">
                 {{ form.username.label(class="form-control-label") }}
                 {{ form.username(class="form-control form-control-md") }}
+                {% for error in form.username.errors %}
+                    <p style="color: crimson;">{{ error }}</p> 
+                {% endfor %}
             </div>
             <!-- Register password field -->
             <div class="form-floating mb-3">
                 {{  form.password.label(class="form-control-label") }}
                 {{ form.password(class="form-control form-control-md") }}
+                {% for error in form.username.errors %}
+                    <p style="color: crimson;">{{ error }}</p> 
+                {% endfor %}
             </div>
             <!-- Register password confirmation -->
             <div class="form-floating mb-3">
                 {{  form.confirm_password.label(class="form-control-label") }}
                 {{ form.confirm_password(class="form-control form-control-md") }} 
+                {% for error in form.username.errors %}
+                    <p style="color: crimson;">{{ error }}</p> 
+                {% endfor %}
             </div>
-            </form>
         </div>
         <!-- Register button -->
         <div class="form-floating">
-            {{  form.submit.label(class="btn btn-primary") }}
+            {{  form.submit(class="btn btn-primary") }}
+            
         </div>
+        </form>
     </div>
-</div>
+</form>
 
 
 {% endblock %}
