@@ -23,11 +23,17 @@
                 <div class="form-floating mb-3">
                     {{ form.username.label(class="form-control-label") }}
                     {{ form.username(class="form-control form-control-md") }}
+                     {% for error in form.username.errors %}
+                    <p style="color: crimson;">{{ error }}</p>
+                    {% endfor %}
                 </div>
                 <!-- Login password field -->
                 <div class="form-floating mb-3">
                     {{  form.password.label(class="form-control-label") }}
                     {{ form.password(class="form-control form-control-md") }}
+                     {% for error in form.password.errors %}
+                    <p style="color: crimson;">{{ error }}</p>
+                    {% endfor %}
                 </div>
                 <!-- Login button -->
                 <div class="form-floating">
