@@ -68,11 +68,11 @@ def login():
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password, please try again!")
-                return redirect("login.html")
+                return redirect(url_for('login'))
         else:
             # invalid username
             flash("Incorrect Username and/or Password, please try again!")
-            return redirect("login.html")
+            return redirect(url_for('login'))
 
     return render_template("login.html", title='Login', form=form)
 

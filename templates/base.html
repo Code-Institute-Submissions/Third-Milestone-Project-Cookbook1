@@ -50,18 +50,20 @@
                 </div>
             </header>
        
-            <section>
+            <div class="flash-section" style="margin-top: 2rem; margin-bottom: 2rem;">
         <!-- flash messages -->
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
+                    <ul >
                         {% for message in messages %}
-                            
-                                <h4 class="text-center">{{ message }}</h4>
-                        
+                            <li>
+                                <h4 class="text-center" style="color: #FF0800;">{{ message }}</h4>
+                            </li>
                         {% endfor %}
+                    </ul>     
                     {% endif %}
                 {% endwith %}
-            </section>
+                </div>
 
   
 
