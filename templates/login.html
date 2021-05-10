@@ -15,8 +15,10 @@
                 </li>
             </ul>
         </div>
+        <!-- Login body-->
         <div class="card-body">
-            <form>
+            <form method="post" action="">
+                {{ form.csrf_token }}
                 <!-- Login username field -->
                 <div class="form-floating mb-3">
                     {{ form.username.label(class="form-control-label") }}
@@ -27,13 +29,12 @@
                     {{  form.password.label(class="form-control-label") }}
                     {{ form.password(class="form-control form-control-md") }}
                 </div>
-            
+                <!-- Login button -->
+                <div class="form-floating">
+                    {{  form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
         </div>
-        <!-- Login button -->
-        <div class="form-floating">
-            {{  form.submit(class="btn btn-primary") }}
-        </div>
-        </form>
     </div>
 </div>
 

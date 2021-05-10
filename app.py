@@ -64,6 +64,7 @@ def login():
                     user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username".lower())
                 flash('Hi {}!'.format(request.form.get("username")))
+                return redirect(url_for('index'))
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password, please try again!")
