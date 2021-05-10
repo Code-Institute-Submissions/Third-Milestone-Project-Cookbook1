@@ -5,11 +5,14 @@ from wtforms import validators
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
-                           [validators.InputRequired(), validators.Length(min=5, max=15)])
+                           [validators.InputRequired(),
+                            validators.Length(min=5, max=15)])
     password = PasswordField('Password',
                              [validators.InputRequired(),
-                              validators.EqualTo('confirm_password', message="Passwords should match")])
-    confirm_password = PasswordField('Confirm Password')
+                              validators.Length(min=5, max=15)])
+    confirm_password = PasswordField('Confirm Password',
+                                     [validators.EqualTo('password',
+                                      message="Passwords should match")])
     submit = SubmitField('Register')
 
 

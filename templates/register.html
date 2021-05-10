@@ -32,7 +32,7 @@
                 <div class="form-floating mb-3">
                     {{  form.password.label(class="form-control-label") }}
                     {{ form.password(class="form-control form-control-md") }}
-                    {% for error in form.username.errors %}
+                    {% for error in form.password.errors %}
                     <p style="color: crimson;">{{ error }}</p>
                     {% endfor %}
                 </div>
@@ -40,7 +40,7 @@
                 <div class="form-floating mb-3">
                     {{  form.confirm_password.label(class="form-control-label") }}
                     {{ form.confirm_password(class="form-control form-control-md") }}
-                    {% for error in form.username.errors %}
+                    {% for error in form.confirm_password.errors %}
                     <p style="color: crimson;">{{ error }}</p>
                     {% endfor %}
                 </div>
