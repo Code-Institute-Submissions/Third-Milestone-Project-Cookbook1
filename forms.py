@@ -27,21 +27,22 @@ class LoginForm(FlaskForm):
 
 
 class UploadRecipeForm(FlaskForm):
-    image = FileField('Choose Image', [validators.DataRequired]),
-    uplaod_img = SubmitField('Upload File'),
+    image = FileField('Choose Image', [validators.DataRequired()]),
+    upload_img = SubmitField('Upload File'),
     recipe_title = StringField('Recipe Title', [
-                               validators.InputRequired,
+                               validators.InputRequired(),
                                validators.Length(min=4, max=45)])
     recipe_story = TextAreaField('Add a short story...', [
-                                 validators.DataRequired,
+                                 validators.DataRequired(),
                                  validators.Length(min=5, max=200)])
     ingredients = StringField('Add ingredients by line', [
-                              validators.InputRequired])
+                              validators.InputRequired()])
     steps = TextAreaField('Step by step method', [
-                          validators.DataRequired,
+                          validators.DataRequired(),
                           validators.Length(min=5, max=260)])
     categories = SelectMultipleField('Recipe category (PLease select at least one)',
-                                     choices=[('Breakfast'), ('Main meal'),
-                                              ('Snacks')])
+                                     choices=[('Breakfast', 'breakfast'),
+                                              ('Main meal', 'main'),
+                                              ('Snacks', 'snacks')])
     keto_recipes = BooleanField('Is this a keto recipe?')
     upload_recipe = SubmitField('Upload Recipe')
