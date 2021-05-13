@@ -1,5 +1,5 @@
 import os
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, UploadRecipeForm
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -78,6 +78,13 @@ def login():
             return redirect(url_for('login'))
 
     return render_template("login.html", title='Login', form=form)
+
+
+@app.route("/upload_recipe", methods=["GET", "POST"])
+def upload_recipe():
+    form = UploadRecipeForm(request.form)
+
+    return render_template("upload_recipe.html", title='Upload', form=form)
 
 
 if __name__ == "__main__":
