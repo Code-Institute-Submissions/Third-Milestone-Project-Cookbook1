@@ -1,12 +1,12 @@
+from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+from bson.objectid import ObjectId
+from flask_pymongo import PyMongo
 import os
 from forms import RegistrationForm, LoginForm, UploadRecipeForm, EditProfileForm
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
-from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
 if os.path.exists("env.py"):
     import env
 
@@ -79,6 +79,13 @@ def login():
             return redirect(url_for('login'))
 
     return render_template("login.html", title='Login', form=form)
+
+
+@app.route("/sign_out")
+def sign_out():
+    session.clear()
+    flash('You have been successfully logged out!')
+    return redirect(url_for('index'))
 
 
 @app.route("/upload_recipe", methods=["GET", "POST"])
