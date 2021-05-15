@@ -58,14 +58,15 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm(request.form)
+    # validate on submit
     if form.validate_on_submit():
-        user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
-
-        if user:
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form["username"].lower()})
+        # cehck for the excisting user
+        if existing_user:
             if check_password_hash(
-                    user["password"], request.form.get("password")):
-                session["user"] = request.form.get("username".lower())
+                    existing_user["password"], request.form.get("password")):
+                session["existing_user"] = request.form["username"]
                 flash('Hi {}!'.format(request.form.get("username")))
                 return redirect(url_for('index'))
             else:
