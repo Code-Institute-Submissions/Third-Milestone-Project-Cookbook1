@@ -102,6 +102,13 @@ def profile():
     return render_template("profile.html", title='Profile', form=form)
 
 
+@app.route("/edit_profile", methods=["GET", "POST"])
+def edit_profile():
+    form = EditProfileForm(request.form)
+
+    return render_template("edit_profile.html", title='Profile', form=form)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
