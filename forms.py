@@ -51,9 +51,6 @@ class UploadRecipeForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     profile_img = FileField('Profile Picture', [
                             validators.InputRequired()])
-    user_bio = TextAreaField('Add Bio',
-                             [validators.InputRequired(),
-                              validators.Length(min=5, max=250)])
     save_profile = SubmitField('Save')
 
 
