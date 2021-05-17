@@ -27,8 +27,8 @@ class LoginForm(FlaskForm):
 
 
 class UploadRecipeForm(FlaskForm):
-    image = FileField('Choose Image', [validators.DataRequired()]),
-    upload_img = SubmitField('Upload File'),
+    image = StringField('Insert Image Link', [
+                               validators.InputRequired()])
     recipe_title = StringField('Recipe Title', [
                                validators.InputRequired(),
                                validators.Length(min=4, max=45)])
@@ -40,23 +40,23 @@ class UploadRecipeForm(FlaskForm):
     steps = TextAreaField('Step by step method', [
                           validators.DataRequired(),
                           validators.Length(min=5, max=260)])
-    categories = SelectMultipleField('Recipe category (PLease select at least one)',
-                                     choices=[('Breakfast', 'breakfast'),
-                                              ('Main meal', 'main'),
-                                              ('Snacks', 'snacks')])
+    categories = SelectMultipleField('Recipe category (Please select at least one)',
+                                     choices=[('breakfast', 'Breakfast'),
+                                              ('main', 'Main Meal'),
+                                              ('snacks', 'Snacks')])
     keto_recipes = BooleanField('Is this a keto recipe?')
     upload_recipe = SubmitField('Upload Recipe')
 
 
 class EditProfileForm(FlaskForm):
-    profile_img = FileField('Profile Picture', [
+    profile_img = StringField('Profile Picture', [
                             validators.InputRequired()])
     save_profile = SubmitField('Save')
 
 
 class EditRecipeForm(FlaskForm):
-    edit_image = FileField('Choose Image', [validators.DataRequired()]),
-    edit_recipeimg = SubmitField('Upload File'),
+    edit_image = StringField('Insert Image Link', [
+        validators.DataRequired()])
     edit_recipe_title = StringField('Recipe Title', [
         validators.InputRequired(),
         validators.Length(min=4, max=45)])
@@ -69,8 +69,8 @@ class EditRecipeForm(FlaskForm):
         validators.DataRequired(),
         validators.Length(min=5, max=260)])
     edit_categories = SelectMultipleField('Recipe category (PLease select at least one)',
-                                          choices=[('Breakfast', 'breakfast'),
-                                                   ('Main meal', 'main'),
-                                                   ('Snacks', 'snacks')])
+                                          choices=[('breakfast', 'Breakfast'),
+                                                   ('main', 'Main Meal'),
+                                                   ('snacks', 'Snacks')])
     edit_keto_recipes = BooleanField('Is this a keto recipe?')
     save_recipe = SubmitField('Save Changes')
