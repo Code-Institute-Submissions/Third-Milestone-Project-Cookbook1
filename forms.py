@@ -27,7 +27,7 @@ class LoginForm(FlaskForm):
 
 
 class UploadRecipeForm(FlaskForm):
-    image = StringField('Insert Image Link', [
+    image = StringField('Insert Image Link (full url)', [
                                validators.InputRequired()])
     recipe_title = StringField('Recipe Title', [
                                validators.InputRequired(),
@@ -39,7 +39,7 @@ class UploadRecipeForm(FlaskForm):
                               validators.InputRequired()])
     steps = TextAreaField('Step by step method', [
                           validators.DataRequired(),
-                          validators.Length(min=5, max=260)])
+                          validators.Length(min=5, max=1300)])
     categories = SelectMultipleField('Recipe category (Please select at least one)',
                                      choices=[('breakfast', 'Breakfast'),
                                               ('main', 'Main Meal'),
@@ -67,7 +67,7 @@ class EditRecipeForm(FlaskForm):
         validators.InputRequired()])
     edit_steps = TextAreaField('Step by step method', [
         validators.DataRequired(),
-        validators.Length(min=5, max=260)])
+        validators.Length(min=5, max=13000)])
     edit_categories = SelectMultipleField('Recipe category (PLease select at least one)',
                                           choices=[('breakfast', 'Breakfast'),
                                                    ('main', 'Main Meal'),

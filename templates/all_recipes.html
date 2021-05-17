@@ -5,25 +5,20 @@
 <h2 class="recipe-header text-center">Recipes</h2>
 
 {% for recipe in recipes %}
-
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="{{ recipe.image }}" alt="" class="rounded-circle">
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card">
+            <img class="card-img-top" src="{{ recipe.image }}" alt="">
+            <div class="card-body">
+                <h4 class="card-title">{{ recipe.recipe_title }}</h4>
+                <p class="card-text">{{ recipe.recipe_story }}</p>
             </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{ recipe.recipe_title }}</h5>
-                    <p class="card-text recipe-author">{{ recipe.username }}</p>
-                    <p class="card-text recipe-story">{{ recipe.recipe_story }}</p>
-                   <p class="card-text date-posted"><small class="text-muted">{{ recipe.date_posted }}</small></p>
-                </div>
-                <div class="card-footer">
-                            <a href="#" class="btn btn-primary">View recipe</a>
-                        </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-primary">View recipe</a>
             </div>
         </div>
     </div>
+
+    
 {% endfor %}
    
 

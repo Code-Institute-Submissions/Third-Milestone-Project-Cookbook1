@@ -67,7 +67,7 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["existing_user"] = request.form["username"]
-                flash('Hi {}!'.format(request.form.get("username")))
+                flash('Hi {}!'.format(session['existing_user']))
                 return redirect(url_for('index'))
             else:
                 # invalid password
@@ -90,7 +90,12 @@ def sign_out():
 
 @app.route("/upload_recipe", methods=["GET", "POST"])
 def upload_recipe():
+    if (session.get('existing_user') is None):
+        flash('Please sign in to upload a recipe!')
+        return redirect(url_for('login'))
+
     form = UploadRecipeForm(request.form)
+
     if form.validate_on_submit():
         recipe = {
             'image': request.form['image'],
