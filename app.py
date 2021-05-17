@@ -132,6 +132,21 @@ def all_recipes():
     return render_template("all_recipes.html", title='All-Recipes', recipes=all_recipes)
 
 
+@app.route("/search")
+def search():
+    Recipes = mongo.db.recipes.find()
+    query = request.args['query']
+    if query:
+        recipes = Recipes.query.filter(Recipes.title.contains('query') |
+                                       Recipes.ingredients.contains('query') |
+                                       Recipes.steps.contains('query'))
+    else:
+        flash('No recipe found matching your search, please search for other keywords!')
+        return redirect(url_for('index'))
+    return render_template("all_recipes.html", title='All-Recipes',
+                           recipes=recipes, query=query)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
