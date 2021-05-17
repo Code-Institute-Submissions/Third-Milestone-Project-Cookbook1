@@ -91,26 +91,19 @@ def sign_out():
 @app.route("/upload_recipe", methods=["GET", "POST"])
 def upload_recipe():
     form = UploadRecipeForm(request.form)
-    # validate on submit
     if form.validate_on_submit():
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form["username"].lower()})
-        if existing_user:
-            recipe = {
-                'image': request.form['image'],
-                'recipe_title': request.form['recipe_title'],
-                'recipe_story': request.form['recipe_story'],
-                'ingredients': request.form['ingredients'],
-                'steps': request.form['steps'],
-                'cathegories': request.form['categories'],
-                'keto_recipe': request.form['keto_recipe']}
-            mongo.db.recipes.insert_one(recipe)
-            flash('Your recipe was seccessfuly added to your collection!')
-            return redirect(url_for('index'))
-    else:
-            # non registered user
-            flash('Please sign in to upload a recipe!')
-            return redirect(url_for('login'))
+        recipe = {
+            'image': request.form['image'],
+            'recipe_title': request.form['recipe_title'],
+            'recipe_story': request.form['recipe_story'],
+            'ingredients': request.form['ingredients'],
+            'steps': request.form['steps'],
+            'categories': form.categories.data,
+            'keto_recipe': True}
+        mongo.db.recipes.insert_one(recipe)
+
+        flash('Your recipe was seccessfuly added to your collection!')
+        return redirect(url_for('index'))
     return render_template("upload_recipe.html", title='Upload', form=form)
 
 
