@@ -121,6 +121,12 @@ def edit_profile():
     return render_template("edit_profile.html", title='Profile', form=form)
 
 
+@app.route("/all_recipes", methods=["GET"])
+def all_recipes():
+    all_recipes = mongo.db.recipes.find()
+    return render_template("all_recipes.html", title='All-Recipes', recipes=all_recipes)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
