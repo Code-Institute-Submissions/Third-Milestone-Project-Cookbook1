@@ -3,65 +3,65 @@
 <h3 class="text-center">Upload Recipe</h3>
 <div class="card text-center col-8 offset-2">
     <div class="form-container container">
-        <form method="post" action=""></form>
-        {{ form.csrf_token }}
-        <!-- Upload Image field -->
-        <div class="form-floating mb-3">
-            {{ form.image.label }}
-            {{ form.image }}
-            {% for error in form.image.errors %}
-            <p style="color: crimson;">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <!-- Upload Image button -->
-        
-        <!-- Recipe title field -->
-        <div class="form-floating mb-3">
-            {{  form.recipe_title.label(class="form-control-label") }}
-            {{ form.recipe_title(class="form-control form-control-md") }}
-            {% for error in form.recipe_title.errors %}
-            <p style="color: crimson;">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <!-- Recipe Story field -->
-        <div class="form-floating mb-3">
-            {{  form.recipe_story.label(class="form-control-label") }}
-            {{ form.recipe_story(class="form-control form-control-md") }}
-            {% for error in form.recipe_story.errors %}
-            <p style="color: crimson;">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <!-- Ingredients field -->
-        <div class="form-floating mb-3">
-            {{  form.ingredients.label(class="form-control-label") }}
-            {{ form.ingredients(class="form-control form-control-md") }}
-            {% for error in form.ingredients.errors %}
-            <p style="color: crimson;">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <!-- Steps field -->
-        <div class="form-floating mb-3">
-            {{  form.steps.label(class="form-control-label") }}
-            {{ form.steps(class="form-control form-control-md") }}
-            {% for error in form.steps.errors %}
-            <p style="color: crimson;">{{ error }}</p>
-            {% endfor %}
-        </div>
-        <!-- Cathegory field -->
-        <div class="">
-            {{  form.categories.label(class="form-check-label") }}
-            {{ form.categories(class="form-check-input") }}
-            
-        </div>
-        <!-- Keto field -->
-        <div class="form-check">
-            {{ form.keto_recipes(class="form-check-input") }}
-            {{  form.keto_recipes.label(class="form-check-label") }}
-        </div>
-        <!-- Upload button -->
-        <div class="form-floating">
-            {{  form.upload_recipe(class="btn btn-primary") }}
-        </div>
+        <form method="post" action="">
+            {{ form.csrf_token }}
+            <!-- Upload Image field -->
+            <div class="form-floating mb-3">
+                {{ form.image.label(class="form-control-label") }}
+                {{ form.image(class="form-control form-control-md") }}
+                {% for error in form.recipe_title.errors %}
+                <p style="color: crimson;">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <!-- Upload Image button -->
+
+            <!-- Recipe title field -->
+            <div class="form-floating mb-3">
+                {{ form.recipe_title.label(class="form-control-label") }}
+                {{ form.recipe_title(class="form-control form-control-md") }}
+                {% for error in form.recipe_title.errors %}
+                <p style="color: crimson;">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <!-- Recipe Story field -->
+            <div class="form-floating mb-3">
+                {{ form.recipe_story.label(class="form-control-label") }}
+                {{ form.recipe_story(class="form-control form-control-md") }}
+                {% for error in form.recipe_story.errors %}
+                <p style="color: crimson;">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <!-- Ingredients field -->
+            <div class="form-floating mb-3">
+                {{ form.ingredients.label(class="form-control-label") }}
+                {{ form.ingredients(class="form-control form-control-md") }}
+                {% for error in form.ingredients.errors %}
+                <p style="color: crimson;">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <!-- Steps field -->
+            <div class="form-floating mb-3">
+                {{ form.steps.label(class="form-control-label") }}
+                {{ form.steps(class="form-control form-control-md") }}
+                {% for error in form.steps.errors %}
+                <p style="color: crimson;">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <!-- Cathegory field -->
+            <div class="form-floating mb-3">
+                {{ form.categories.label(class="form-check-label") }}
+                {{ form.categories(class="form-check-input") }}
+
+            </div>
+            <!-- Keto field -->
+            <div class="form-check">
+                {{ form.keto_recipes(class="form-check-input") }}
+                {{  form.keto_recipes.label(class="form-check-label") }}
+            </div>
+            <!-- Upload button -->
+            <div class="form-floating">
+                {{  form.upload_recipe(class="btn btn-primary") }}
+            </div>
         </form>
     </div>
 </div>
