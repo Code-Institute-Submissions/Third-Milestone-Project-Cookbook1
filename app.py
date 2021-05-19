@@ -103,8 +103,8 @@ def upload_recipe():
             'recipe_story': request.form['recipe_story'],
             'ingredients': request.form['ingredients'],
             'steps': request.form['steps'],
-            'categories': form.categories.data,
-            'keto_recipe': True}
+            'categories': request.form['categories'],
+            'keto_recipe': request.form['keto_recipe']}
         mongo.db.recipes.insert_one(recipe)
 
         flash('Your recipe was seccessfuly added to your collection!')
@@ -133,9 +133,24 @@ def all_recipes():
     if recipe_type is None:
         all_recipes = mongo.db.recipes.find()
         return render_template("all_recipes.html", title='All-Recipes', recipes=all_recipes)
+    if recipe_type == 'keto':
+        recipes = mongo.db.recipes.find({'keto_recipe': True})
+        return render_template("all_recipes.html", title='Keto', recipes=recipes)
     specific_recipes = mongo.db.recipes.find({"categories": recipe_type})
     return render_template("all_recipes.html", title=recipe_type, recipes=specific_recipes)
-    
+
+
+@app.route("/search")
+def search():
+    search = request.args('query')
+    if search is True:
+        search_result = mongo.db.recipes.find({
+            'recipes.title': search,
+            'recipes.recipe_story': search,
+            'recipes.recipe_ingredients': search
+        })
+    return render_template("all_recipes.html", search=search_result)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
