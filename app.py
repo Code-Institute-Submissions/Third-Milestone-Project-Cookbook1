@@ -142,14 +142,18 @@ def all_recipes():
 
 @app.route("/search")
 def search():
-    search = request.args('query')
-    if search is True:
-        search_result = mongo.db.recipes.find({
-            'recipes.title': search,
-            'recipes.recipe_story': search,
-            'recipes.recipe_ingredients': search
-        })
-    return render_template("all_recipes.html", search=search_result)
+    search = request.args.get('query')
+    search_result = mongo.db.recipes.find({
+        '$or': [
+            {'recipe_title': {'$regex': search}},
+            {'recipe_story': {'$regex': search}},
+            {'ingredients': {'$regex': search}},
+            {'categories': {'$regex': search}}
+        ]})
+    if search_result.count() == 0:
+        flash('No {} found in recipes, please make a new search!'.format(search))
+        return redirect(url_for('index'))
+    return render_template("all_recipes.html", query=search, recipes=search_result)
 
 
 if __name__ == "__main__":

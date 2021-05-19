@@ -52,9 +52,9 @@
                 <div class="container">
                     <div class="masthead-subheading">You Are What You Eat</div>
                     <div class="masthead-heading text-uppercase">Be a Rainbow</div>
-                    <form action="" method="GET" class="input-group md-3">
-                        <input type="text" class="form-control" placeholder="Search recipe" aria-label="Search recipe" aria-describedby="button-searchn" name="query" id="query">
-                        <button class="btn  btn-primary btn-md text-uppercase" type="button" id="button-search">Search</button>
+                    <form action="{{ url_for('search') }}" class="input-group md-3">
+                        <input type="text" class="form-control" placeholder="Search recipe" aria-label="Search recipe" aria-describedby="button-search" name="query">
+                        <button class="btn  btn-primary btn-md text-uppercase" type="submit" id="button-search">Search</button>
                    </form>
                 </div>
             </header>
