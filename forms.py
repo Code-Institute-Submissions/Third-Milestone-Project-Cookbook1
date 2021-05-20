@@ -31,7 +31,7 @@ class UploadRecipeForm(FlaskForm):
                                validators.InputRequired()])
     recipe_title = StringField('Recipe Title', [
                                validators.InputRequired(),
-                               validators.Length(min=4, max=45)])
+                               validators.Length(min=4, max=85)])
     recipe_story = TextAreaField('Add a short story...', [
                                  validators.DataRequired(),
                                  validators.Length(min=5, max=200)])
