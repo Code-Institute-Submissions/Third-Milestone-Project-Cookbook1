@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
-from wtforms import StringField, BooleanField, PasswordField, SubmitField, TextAreaField, SelectMultipleField
+from wtforms import StringField, BooleanField, PasswordField, SubmitField, TextAreaField, SelectField
 from wtforms import validators
 
 
@@ -40,10 +40,10 @@ class UploadRecipeForm(FlaskForm):
     steps = TextAreaField('Step by step method', [
                           validators.DataRequired(),
                           validators.Length(min=5, max=1300)])
-    categories = SelectMultipleField('Recipe category (Please select at least one)',
-                                     choices=[('breakfast', 'Breakfast'),
-                                              ('main', 'Main Meal'),
-                                              ('snacks', 'Snacks')])
+    categories = SelectField('Recipe category (Please select at least one)',
+                             choices=[('breakfast', 'Breakfast'),
+                                      ('main', 'Main Meal'),
+                                      ('snacks', 'Snacks')])
     keto_recipes = BooleanField('Is this a keto recipe?')
     upload_recipe = SubmitField('Upload Recipe')
 
@@ -55,22 +55,22 @@ class EditProfileForm(FlaskForm):
 
 
 class EditRecipeForm(FlaskForm):
-    edit_image = StringField('Insert Image Link', [
-        validators.DataRequired()])
-    edit_recipe_title = StringField('Recipe Title', [
-        validators.InputRequired(),
-        validators.Length(min=4, max=45)])
-    edit_recipe_story = TextAreaField('Add a short story...', [
-        validators.DataRequired(),
-        validators.Length(min=5, max=200)])
-    edit_ingredients = StringField('Add ingredients by line', [
-        validators.InputRequired()])
-    edit_steps = TextAreaField('Step by step method', [
-        validators.DataRequired(),
-        validators.Length(min=5, max=13000)])
-    edit_categories = SelectMultipleField('Recipe category (PLease select at least one)',
-                                          choices=[('breakfast', 'Breakfast'),
-                                                   ('main', 'Main Meal'),
-                                                   ('snacks', 'Snacks')])
-    edit_keto_recipes = BooleanField('Is this a keto recipe?')
+    image = StringField('Insert Image Link (full url)', [
+                               validators.InputRequired()])
+    recipe_title = StringField('Recipe Title', [
+                               validators.InputRequired(),
+                               validators.Length(min=4, max=85)])
+    recipe_story = TextAreaField('Add a short story...', [
+                                 validators.DataRequired(),
+                                 validators.Length(min=5, max=200)])
+    ingredients = StringField('Add ingredients by line', [
+                              validators.InputRequired()])
+    steps = TextAreaField('Step by step method', [
+                          validators.DataRequired(),
+                          validators.Length(min=5, max=1300)])
+    categories = SelectField('Recipe category (Please select at least one)',
+                             choices=[('breakfast', 'Breakfast'),
+                                      ('main', 'Main Meal'),
+                                      ('snacks', 'Snacks')])
+    keto_recipes = BooleanField('Is this a keto recipe?')
     save_recipe = SubmitField('Save Changes')
