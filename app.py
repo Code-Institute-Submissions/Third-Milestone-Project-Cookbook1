@@ -160,10 +160,23 @@ def search():
 @app.route("/eidit_recipe/<recipe_id>",  methods=["GET", "POST"])
 def edite_recipe(recipe_id):
     form = EditRecipeForm(request.form)
-    recipe_data = mongo.db.recipe.found_one({'_id': ObjectId(recipe_id)})
-    if recipe_data 
-
-
+    recipe_data = mongo.db.recipes.found_one({'_id': ObjectId(recipe_id)})
+    if request.method == "GET":
+        form = EditRecipeForm(formdata=recipe_id)
+        return render_template(url_for('edite_recipe.html', recipe=recipe_data, form=form))
+    if request.method == "POST" and form.validate_on_submit():
+        recipe = {
+            'image': request.form['image'],
+            'recipe_title': request.form['recipe_title'],
+            'author': session['username'],
+            'recipe_story': request.form['recipe_story'],
+            'ingredients': request.form['ingredients'],
+            'steps': request.form['steps'],
+            'categories': request.form['categories'],
+            'keto_recipe': request.form['keto_recipes']}
+        mongo.db.recipes.update_one({'_id': ObjectId(recipe_id)}, {recipe})
+        flash('Your recipe has been updated!')
+    return render_template("edit_recipe.html", recipe=recipe_data, form=form)
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
