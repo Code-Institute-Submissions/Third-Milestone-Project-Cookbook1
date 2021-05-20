@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 import os
-from forms import RegistrationForm, LoginForm, UploadRecipeForm, EditProfileForm
+from forms import RegistrationForm, LoginForm, UploadRecipeForm, EditProfileForm, EditRecipeForm
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -100,6 +100,7 @@ def upload_recipe():
         recipe = {
             'image': request.form['image'],
             'recipe_title': request.form['recipe_title'],
+            'author': session['username'],
             'recipe_story': request.form['recipe_story'],
             'ingredients': request.form['ingredients'],
             'steps': request.form['steps'],
@@ -134,7 +135,7 @@ def all_recipes():
         all_recipes = mongo.db.recipes.find()
         return render_template("all_recipes.html", title='All-Recipes', recipes=all_recipes)
     if recipe_type == 'keto':
-        recipes = mongo.db.recipes.find({'keto_recipe': True})
+        recipes = mongo.db.recipes.find({'keto_recipe': 'y'})
         return render_template("all_recipes.html", title='Keto', recipes=recipes)
     specific_recipes = mongo.db.recipes.find({"categories": recipe_type})
     return render_template("all_recipes.html", title=recipe_type, recipes=specific_recipes)
@@ -154,6 +155,14 @@ def search():
         flash('No {} found in recipes, please make a new search!'.format(search))
         return redirect(url_for('index'))
     return render_template("all_recipes.html", query=search, recipes=search_result)
+
+
+@app.route("/eidit_recipe/<recipe_id>",  methods=["GET", "POST"])
+def edite_recipe(recipe_id):
+    form = EditRecipeForm(request.form)
+    recipe_data = mongo.db.recipe.found_one({'_id': ObjectId(recipe_id)})
+    if recipe_data 
+
 
 
 if __name__ == "__main__":
