@@ -104,7 +104,7 @@ def upload_recipe():
             'ingredients': request.form['ingredients'],
             'steps': request.form['steps'],
             'categories': request.form['categories'],
-            'keto_recipe': request.form['keto_recipe']}
+            'keto_recipe': request.form['keto_recipes']}
         mongo.db.recipes.insert_one(recipe)
 
         flash('Your recipe was seccessfuly added to your collection!')
