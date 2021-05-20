@@ -113,20 +113,6 @@ def upload_recipe():
     return render_template("upload_recipe.html", title='Upload', form=form)
 
 
-@app.route("/profile", methods=["GET", "POST"])
-def profile():
-    form = EditProfileForm(request.form)
-
-    return render_template("profile.html", title='Profile', form=form)
-
-
-@app.route("/edit_profile", methods=["GET", "POST"])
-def edit_profile():
-    form = EditProfileForm(request.form)
-
-    return render_template("edit_profile.html", title='Profile', form=form)
-
-
 @app.route("/all_recipes", methods=["GET"])
 def all_recipes():
     # Check if we have `type` argument in the request
@@ -166,17 +152,31 @@ def edite_recipe(recipe_id):
         return render_template(url_for('edite_recipe.html', recipe=recipe_data, form=form))
     if request.method == "POST" and form.validate_on_submit():
         recipe = {
-            'image': request.form['image'],
-            'recipe_title': request.form['recipe_title'],
-            'author': session['username'],
-            'recipe_story': request.form['recipe_story'],
-            'ingredients': request.form['ingredients'],
-            'steps': request.form['steps'],
-            'categories': request.form['categories'],
-            'keto_recipe': request.form['keto_recipes']}
+            "$set": {
+                {'image': request.form['image']},
+                {'recipe_title': request.form['recipe_title']},
+                {'author': session['username']},
+                {'recipe_story': request.form['recipe_story']},
+                {'ingredients': request.form['ingredients']},
+                {'steps': request.form['steps']},
+                {'categories': request.form['categories']},
+                {'keto_recipe': request.form['keto_recipes']}}}
         mongo.db.recipes.update_one({'_id': ObjectId(recipe_id)}, {recipe})
         flash('Your recipe has been updated!')
     return render_template("edit_recipe.html", recipe=recipe_data, form=form)
+
+
+@app.route("/recipe/<recipe_id>")
+def recipe(recipe_id):
+    recipe_data = mongo.db.recipes.found_one({'_id': ObjectId(recipe_id)})
+    return render_template("recipe.html", recipe=recipe_data)
+
+
+@app.route("/profile/<user_id>")
+def profile(user_id):
+    user_data = mongo.db.users.found_one({'_id': ObjectId(user_id)})
+    return render_template("profile.html", user=user_data)
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
