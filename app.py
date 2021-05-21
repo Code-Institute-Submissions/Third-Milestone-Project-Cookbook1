@@ -80,6 +80,12 @@ def login():
 
     return render_template("login.html", title='Login', form=form)
 
+'''
+@app.route("/profile")
+def profile():
+    user = session['existing_user']
+    return render_template("profile.html", title='Your Profile', user=user)
+'''
 
 @app.route("/sign_out")
 def sign_out():
@@ -123,6 +129,9 @@ def all_recipes():
     if recipe_type == 'keto':
         recipes = mongo.db.recipes.find({'keto_recipe': 'y'})
         return render_template("all_recipes.html", title='Keto', recipes=recipes)
+    if recipe_type == 'my_recipes':
+        recipes = mongo.db.recipes.find({'author': {session['existing_user']}})
+        return render_template("all_recipes.html", title='My Profile', recipes=recipes)  
     specific_recipes = mongo.db.recipes.find({"categories": recipe_type})
     return render_template("all_recipes.html", title=recipe_type, recipes=specific_recipes)
 
@@ -143,10 +152,10 @@ def search():
     return render_template("all_recipes.html", query=search, recipes=search_result)
 
 
-@app.route("/eidit_recipe/<recipe_id>",  methods=["GET", "POST"])
+@app.route("/edit_recipe/<recipe_id>",  methods=["GET", "POST"])
 def edite_recipe(recipe_id):
     form = EditRecipeForm(request.form)
-    recipe_data = mongo.db.recipes.found_one({'_id': ObjectId(recipe_id)})
+    recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     if request.method == "GET":
         form = EditRecipeForm(formdata=recipe_id)
         return render_template(url_for('edite_recipe.html', recipe=recipe_data, form=form))
@@ -168,14 +177,8 @@ def edite_recipe(recipe_id):
 
 @app.route("/recipe/<recipe_id>")
 def recipe(recipe_id):
-    recipe_data = mongo.db.recipes.found_one({'_id': ObjectId(recipe_id)})
+    recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     return render_template("recipe.html", recipe=recipe_data)
-
-
-@app.route("/profile/<user_id>")
-def profile(user_id):
-    user_data = mongo.db.users.found_one({'_id': ObjectId(user_id)})
-    return render_template("profile.html", user=user_data)
 
 
 if __name__ == "__main__":
