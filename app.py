@@ -123,6 +123,7 @@ def upload_recipe():
 def all_recipes():
     # Check if we have `type` argument in the request
     recipe_type = request.args.get('type')
+    active_user = session['existing_user']
     if recipe_type is None:
         all_recipes = mongo.db.recipes.find()
         return render_template("all_recipes.html", title='All-Recipes', recipes=all_recipes)
@@ -130,7 +131,7 @@ def all_recipes():
         recipes = mongo.db.recipes.find({'keto_recipe': 'y'})
         return render_template("all_recipes.html", title='Keto', recipes=recipes)
     if recipe_type == 'my_recipes':
-        recipes = mongo.db.recipes.find({'author': {session['existing_user']}})
+        recipes = mongo.db.recipes.find({'author': active_user})
         return render_template("all_recipes.html", title='My Profile', recipes=recipes)  
     specific_recipes = mongo.db.recipes.find({"categories": recipe_type})
     return render_template("all_recipes.html", title=recipe_type, recipes=specific_recipes)
