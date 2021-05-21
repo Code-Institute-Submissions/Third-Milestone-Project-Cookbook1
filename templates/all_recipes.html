@@ -17,7 +17,7 @@
                 <p class="card-text">{{ recipe.recipe_story }}</p>
             </div>
             <div class="card-footer">
-                <a href="#" class="btn btn-primary">View recipe</a>
+                <a href="{{ url_for('recipe', recipe_id=recipe._id) }} " class="btn btn-primary">View recipe</a>
             </div>
         </div>
     </div>
