@@ -36,7 +36,7 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger"
                                 href="{{  url_for('upload_recipe')  }}">Upload Recipes</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger"
-                                href="{{  url_for('profile')  }}">Profile</a></li>
+                                href="{{ url_for('all_recipes', type='my_recipes') }}">My Recipes</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{  url_for('sign_out')  }}">Sign Out</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{  url_for('login')  }}">Sign
