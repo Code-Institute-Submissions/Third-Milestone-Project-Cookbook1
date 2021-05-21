@@ -123,7 +123,6 @@ def upload_recipe():
 def all_recipes():
     # Check if we have `type` argument in the request
     recipe_type = request.args.get('type')
-    active_user = session['existing_user']
     if recipe_type is None:
         all_recipes = mongo.db.recipes.find()
         return render_template("all_recipes.html", title='All-Recipes', recipes=all_recipes)
@@ -131,6 +130,7 @@ def all_recipes():
         recipes = mongo.db.recipes.find({'keto_recipe': 'y'})
         return render_template("all_recipes.html", title='Keto', recipes=recipes)
     if recipe_type == 'my_recipes':
+        active_user = session['existing_user']
         recipes = mongo.db.recipes.find({'author': active_user})
         return render_template("all_recipes.html", title='My Profile', recipes=recipes)  
     specific_recipes = mongo.db.recipes.find({"categories": recipe_type})
@@ -154,12 +154,12 @@ def search():
 
 
 @app.route("/edit_recipe/<recipe_id>",  methods=["GET", "POST"])
-def edite_recipe(recipe_id):
+def edit_recipe(recipe_id):
     form = EditRecipeForm(request.form)
     recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     if request.method == "GET":
         form = EditRecipeForm(formdata=recipe_id)
-        return render_template(url_for('edite_recipe.html', recipe=recipe_data, form=form))
+        return render_template('edit_recipe.html', recipe=recipe_data, form=form)
     if request.method == "POST" and form.validate_on_submit():
         recipe = {
             "$set": {
