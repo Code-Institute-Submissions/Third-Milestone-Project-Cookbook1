@@ -1,49 +1,32 @@
 {% extends "base.html" %}
-
 {% block content%}
-
-
-    
-<div class="row profile-username">
-    <h2 class="username-display"></h2>
-</div>
-<div class="row profile-header">
-    <h3>Your Recipes</h3>
-</div>
-
-<div class="card-body">
-            <form method="post" action="">
-                {{ form.csrf_token }}
-                <div class="form-floating mb-3">
-                    {{ form.username.label(class="form-control-label") }}
-                    {{ form.username(class="form-control form-control-md") }}
-                    {% for error in form.username.errors %}
-                    <p style="color: crimson;">{{ error }}</p>
-                    {% endfor %}
+    <div class="row profile-username">
+        <h2 class="username-display"></h2>
+    </div>
+    <div class="row profile-header">
+        <h3>Your Recipes</h3>
+    </div>
+    <div class="container recipes-container">
+        <div class="row ">
+            
+            {% for recipe in recipes %}
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card ">
+                    <img class="card-img-top" src="{{ recipe.image }}" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ recipe.recipe_title }}</h4>
+                        <p class="card-text">{{ recipe.recipe_story }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('recipe', recipe_id=recipe._id) }} " class="btn btn-primary">View recipe</a>
+                    </div>
                 </div>
-                <!-- Register password field -->
-                <div class="form-floating mb-3">
-                    {{  form.password.label(class="form-control-label") }}
-                    {{ form.password(class="form-control form-control-md") }}
-                    {% for error in form.password.errors %}
-                    <p style="color: crimson;">{{ error }}</p>
-                    {% endfor %}
-                </div>
-                <!-- Register password confirmation -->
-                <div class="form-floating mb-3">
-                    {{  form.confirm_password.label(class="form-control-label") }}
-                    {{ form.confirm_password(class="form-control form-control-md") }}
-                    {% for error in form.confirm_password.errors %}
-                    <p style="color: crimson;">{{ error }}</p>
-                    {% endfor %}
-                </div>
-
-                <!-- Register button -->
-                <div class="form-floating">
-                    {{  form.submit(class="btn btn-primary") }}
-
-                </div>
-            </form>
+            </div>
+           
+            {% endfor %}
+          
         </div>
+    </div>
         
 {% endblock %}
