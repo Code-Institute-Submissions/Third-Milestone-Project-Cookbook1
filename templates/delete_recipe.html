@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{%block content%}
+
+
+<div class="text-center col-8 offset-2">
+    <div class=" container">
+        {% if session["existing_user"] == recipe.author %}
+        <div class="row delete-recipe">
+            <div class="delete-message alert">
+                <h3>Are you sure you want to delete the following recipe?</h3>
+                <P>Once recipe is deleted, it can't be restored!</P>
+            </div>
+            <form method="post" action="">
+                {{ form.csrf_token }}
+            <div class="form-floating">
+                {{  form.delete_recipe(class="btn btn-primary") }}
+            </div>
+            </form>
+        </div>
+        {% endif %}
+        <!-- Image field -->
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="">
+        <row class="recipe-header">
+            <!-- Recipe title field -->
+        <h3 class="text-center">{{ recipe.recipe_title }}</h3>
+        <!-- Recipe Story field -->
+        <P class="recipe-story">{{ recipe.recipe_story }}</P>
+        </row>    
+        <div class="container">
+
+            <!-- Ingredients field -->
+            <p>{{ recipe.ingredients}}</p>
+            
+            <!-- Steps field -->
+            <p>{{ recipe.steps }}</p>
+        </div>  
+        
+    </div>
+</div>
+
+
+{% endblock %}
