@@ -3,7 +3,7 @@
 {%block content%}
 
 
-<div class="text-center col-8 offset-2">
+<div class="text-center col-md-8 offset-md-2">
     <div class=" container">
         {% if session["existing_user"] == recipe.author %}
         <div class="row edit-section">
@@ -12,20 +12,24 @@
         </div>
         {% endif %}
         <!-- Image field -->
-        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="">
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="img-fluid">
         <row class="recipe-header">
             <!-- Recipe title field -->
-        <h3 class="text-center">{{ recipe.recipe_title }}</h3>
+        <h3 class="text-center section-heading">{{ recipe.recipe_title }}</h3>
+        <!-- Recipe author field -->
+        <h5 class="text-center section-heading">Posted by: {{ recipe.author }}</h5>
         <!-- Recipe Story field -->
-        <P class="recipe-story">{{ recipe.recipe_story }}</P>
+        <P class="recipe-story text-muted">{{ recipe.recipe_story }}</P>
         </row>    
         <div class="container">
 
             <!-- Ingredients field -->
-            <p>{{ recipe.ingredients}}</p>
+            <h5 class="section-heading">Ingredients:</h5>
+            <p class="text-muted">{{ recipe.ingredients}}</p>
             
             <!-- Steps field -->
-            <p>{{ recipe.steps }}</p>
+            <h5 class="section-heading">Steps:</h5>
+            <p class="text-muted">{{ recipe.steps }}</p>
         </div>  
         
     </div>
