@@ -74,3 +74,7 @@ class EditRecipeForm(FlaskForm):
                                       ('snacks', 'Snacks')])
     keto_recipes = BooleanField('Is this a keto recipe?')
     save_recipe = SubmitField('Save Changes')
+
+
+class DeleteRecipeForm(FlaskForm):
+    delete_recipe = SubmitField('Delete Recipe')
