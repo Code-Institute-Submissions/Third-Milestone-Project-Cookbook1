@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<h3 class="text-center">Edit Recipe</h3>
-<div class="card text-center col-8 offset-2">
+<h3 class="text-center section-heading text-uppercase">Edit Recipe</h3>
+<div class="card text-center col-md-8 offset-md-2">
     <div class="form-container container">
         <form method="post" action="">
             {{ form.csrf_token }}
@@ -61,6 +61,7 @@
             <div class="form-floating">
                 {{  form.save_recipe(class="btn btn-primary") }}
             </div>
+            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="btn  btn-primary btn-md text-uppercase" type="button" id="button-cancel">Cancel</a>
         </form>
     </div>
 </div>
