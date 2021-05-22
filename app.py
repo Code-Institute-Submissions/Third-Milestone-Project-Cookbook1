@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 import os
-from forms import RegistrationForm, LoginForm, UploadRecipeForm, EditProfileForm, EditRecipeForm
+from forms import RegistrationForm, LoginForm, UploadRecipeForm, EditProfileForm, EditRecipeForm, DeleteRecipeForm
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -158,7 +158,7 @@ def edit_recipe(recipe_id):
     form = EditRecipeForm(request.form)
     recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     if request.method == "GET":
-        form = EditRecipeForm(formdata=recipe_id)
+        form = EditRecipeForm(data=recipe_data)
         return render_template('edit_recipe.html', recipe=recipe_data, form=form)
     if request.method == "POST" and form.validate_on_submit():
         recipe = {
@@ -174,6 +174,21 @@ def edit_recipe(recipe_id):
         mongo.db.recipes.update_one({'_id': ObjectId(recipe_id)}, {recipe})
         flash('Your recipe has been updated!')
     return render_template("edit_recipe.html", recipe=recipe_data, form=form)
+
+
+@app.route("/delete_recipe/<recipe_id>",  methods=["GET", "POST"])
+def delete_recipe(recipe_id):
+    form = DeleteRecipeForm(request.form)
+    recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    if request.method == "GET":
+        form = DeleteRecipeForm(data=recipe_data)
+        return render_template('delete_recipe.html', recipe=recipe_data, form=form)
+    if request.method == "POST" and form.validate_on_submit(): 
+        mongo.db.recipes.delete_one({'_id': ObjectId(recipe_id)})
+        flash('Your recipe has been deleted!')
+        return redirect(url_for('all_recipes', title='My Profile'))
+    return render_template("delete_recipe.html", title=delete_recipe, recipe=recipe_data, form=form)
+
 
 
 @app.route("/recipe/<recipe_id>")
