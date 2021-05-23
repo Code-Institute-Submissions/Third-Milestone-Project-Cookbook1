@@ -43,3 +43,48 @@ User is able to sign out of their profile by clicking Sign Out tab on the navbar
 **All Recipes**
 
 Users are also able to browse through all the recipes other people have uploaded without searching for selecting special categories. In this case they can get some inspiration and might return to later to cook that recipe, or it is great for those who can’t decide what they fancy to eat or cook
+
+#### Project and wireframes:
+**Generic**
+
+* The project was created by using:
+	*Python
+	*HTML5
+	*CSS/Bootstrap
+	*Mongo
+	*Flask
+	*JS/JQuery
+The bases of the website was downloaded from [Start Bootstrap/theme/agency](https://startbootstrap.com/theme/agency)
+
+**Following CRUD**:
+
+* User is able to create a recipe (Upload Recipe)
+* User is able to read data by searching for the recipes or navigate to them by url 
+* User is able to edit or update their data entered by using Edit Recipe 
+* User is able to delete data from the database by clicking Delete Recipe
+
+**Wireframes**:
+
+![Home page](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762978/3rd%20project/IMG_0265_hzyr9g.jpg)
+
+![Category Page](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762978/3rd%20project/IMG_0267_fms1li.jpg)
+
+![Profile Page](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762979/3rd%20project/IMG_0269_sqmanx.jpg)
+
+![Sign In](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762980/3rd%20project/IMG_0271_ctf54w.jpg)
+
+!Register](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762980/3rd%20project/IMG_0272_ihyfkl.jpg)
+
+![Upload Recipe](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762979/3rd%20project/IMG_0270_xj3ljg.jpg)
+
+**Media used in the project**
+
+All recipes uploaded are my own photos and recipes and the images can be found on [Cookpad](https://cookpad.com)
+Imager for the base.html was downloaded from [Unsplash](https://unsplash.com/photos/jUPOXXRNdcA)
+
+**Following websites were used for searching for answers**
+
+[Stckoverflow](https://stackoverflow.com/) , mainly rely on this website searching for solution, although never copied code 
+With the documentation on Flask I was using the following website: [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+Many search would come with flask and python questions on the following website: [GeekforGeeks](https://www.geeksforgeeks.org/)
+How to use SelectMultipleField, although i didn’t end up using it: [SelectMultiple](https://stackoverflow.com/questions/13558345/flask-app-using-wtforms-with-selectmultiplefield)
