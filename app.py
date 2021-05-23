@@ -2,7 +2,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 import os
-from forms import (RegistrationForm, LoginForm, UploadRecipeForm,
+from forms import (RegistrationForm, LoginForm, UploadRecipeForm, 
                    EditRecipeForm, DeleteRecipeForm)
 from flask import (
     Flask, flash, render_template,
@@ -67,7 +67,7 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["existing_user"] = request.form["username"]
-                flash('Hi {}!'.format(session['existing_user']))
+                flash('Hi {}!'.format(session.get("existing_user")))
                 return redirect(url_for('index'))
             else:
                 # invalid password
@@ -103,7 +103,7 @@ def upload_recipe():
         recipe = {
             'image': request.form['image'],
             'recipe_title': request.form['recipe_title'],
-            'author': session['existing_user'],
+            'author': session.get("existing_user"),
             'recipe_story': request.form['recipe_story'],
             'ingredients': request.form['ingredients'],
             'steps': request.form['steps'],
@@ -115,6 +115,33 @@ def upload_recipe():
         flash('Your recipe was seccessfuly added to your collection!')
         return redirect(url_for('index'))
     return render_template("upload_recipe.html", title='Upload', form=form)
+
+
+@app.route("/edit_recipe/<recipe_id>",  methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    form = EditRecipeForm(request.form)
+    recipe_data = mongo.db.recipes.find_one_or_404(
+        {'_id': ObjectId(recipe_id)})
+    # If user logged in allow them to edit their recipe
+    if request.method == "GET":
+        form = EditRecipeForm(data=recipe_data)
+        return render_template('edit_recipe.html', recipe=recipe_data,
+                               form=form)
+        # On submit enter editted data to database
+    if request.method == "POST" and form.validate_on_submit():
+        recipe = {
+            "$set": {
+                'image': request.form['image'],
+                'recipe_title': request.form['recipe_title'],
+                'author': session.get("existing_user"),
+                'recipe_story': request.form['recipe_story'],
+                'ingredients': request.form['ingredients'],
+                'steps': request.form['steps'],
+                'categories': request.form['categories'],
+                'keto_recipes': request.form['keto_recipes']}}
+        mongo.db.recipes.update_one({'_id': ObjectId(recipe_id)}, (recipe))
+        flash('Your recipe has been updated!')
+    return render_template("recipe.html", recipe=recipe_data, form=form)
 
 
 @app.route("/all_recipes", methods=["GET"])
@@ -167,32 +194,7 @@ def search():
                            recipes=search_result)
 
 
-@app.route("/edit_recipe/<recipe_id>",  methods=["GET", "POST"])
-def edit_recipe(recipe_id):
-    form = EditRecipeForm(request.form)
-    recipe_data = mongo.db.recipes.find_one_or_404(
-        {'_id': ObjectId(recipe_id)})
-    # If user logged in allow them to edit their recipe
-    if request.method == "GET":
-        form = EditRecipeForm(data=recipe_data)
-        return render_template('edit_recipe.html', recipe=recipe_data,
-                               form=form)
-        # On submit enter editted data to database
-    if request.method == "POST" and form.validate_on_submit():
-        recipe = {
-            "$set": {
-                {'image': request.form['image']},
-                {'recipe_title': request.form['recipe_title']},
-                {'author': session['username']},
-                {'recipe_story': request.form['recipe_story']},
-                {'ingredients': request.form['ingredients']},
-                {'steps': request.form['steps']},
-                {'categories': request.form['categories']},
-                {'keto_recipes': request.form['keto_recipes']}}}
-        mongo.db.recipes.update_one({'_id': ObjectId(recipe_id)}, {recipe})
-        # Feedback to author recipe was edited
-        flash('Your recipe has been updated!')
-    return render_template("edit_recipe.html", recipe=recipe_data, form=form)
+
 
 
 @app.route("/delete_recipe/<recipe_id>",  methods=["GET", "POST"])
@@ -208,7 +210,7 @@ def delete_recipe(recipe_id):
     if request.method == "POST" and form.validate_on_submit():
         mongo.db.recipes.delete_one({'_id': ObjectId(recipe_id)})
         flash('Your recipe has been deleted!')
-        return redirect(url_for('all_recipes', title='My Profile'))
+        return redirect(url_for('all_recipes', type='my_recipes'))
     return render_template("delete_recipe.html", title=delete_recipe,
                            recipe=recipe_data, form=form)
 
