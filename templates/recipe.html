@@ -3,12 +3,13 @@
 {%block content%}
 
 
-<div class="container col-md-6 offset-md-3">
+<div class="container col-xl-6 offset-xl-3">
     <div class="row recipe-row">
+        <!-- If recipe's author in session display dlete and edit button on the top-->
         {% if session["existing_user"] == recipe.author %}
         <div class="edit-section">
             <a href="{{  url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary">Edit Recipe</a>
-            <a href="{{  url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn btn-primary">Delete Recipe</a>
+            <a href="{{  url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn btn-danger">Delete Recipe</a>
         </div>
         {% endif %}
         <div class="card">
@@ -44,28 +45,4 @@
 
 {% endblock %}
 
-
-
-<div class="container recipes-container">
-    <div class="row ">
-{% for recipe in recipes %}
-    <div class="card-deck col-lg-3 col-md-6 mb-4">
-        <div class="card ">
-            <div class="card-img">
-            <img class="card-img-top" src="{{ recipe.image }}" alt="">
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">{{ recipe.recipe_title }}</h4>
-                <h6 class="card-author">By: {{ recipe.author }}</h6>
-                <p class="card-text">{{ recipe.recipe_story }}</p>
-            </div>
-            <div class="card-footer">
-                <a href="{{ url_for('recipe', recipe_id=recipe._id) }} " class="btn btn-primary">View recipe</a>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-    </div>
-</div>
-    
 
