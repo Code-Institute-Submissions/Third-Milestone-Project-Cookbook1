@@ -2,8 +2,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 import os
-from forms import (RegistrationForm, LoginForm, UploadRecipeForm, 
-                   EditRecipeForm, DeleteRecipeForm)
+from forms import RegistrationForm, LoginForm, UploadRecipeForm, EditRecipeForm, DeleteRecipeForm
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -192,9 +191,6 @@ def search():
         return redirect(url_for('index'))
     return render_template("all_recipes.html", query=search,
                            recipes=search_result)
-
-
-
 
 
 @app.route("/delete_recipe/<recipe_id>",  methods=["GET", "POST"])
