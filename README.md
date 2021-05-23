@@ -1,5 +1,7 @@
 # Made to Share Recipe Online Recipe Shearing Site 
 
+**PLease click [here](https://cookbook-milestone-project.herokuapp.com/) to check out the deplyed site**
+
 ## User Experience:
 
 ### Project Goals:
@@ -100,6 +102,11 @@ How to use SelectMultipleField, although i didn’t end up using it: [SelectMult
 * Also used Breakpoint to debug the code most of the time, which helped to know the when is the point my code is executed so it most of the time lead to an answer, instead of searching through massive amount of answers and codes from the web
 * Installed and deleted many elements of FlaskForms and wtforms, as found an easier way to deal with the issues. Eg: stacked with the way to upload the image in the recipe and use path. In the end my mentor pointed me in the right direction and gave me a hint to use url to upload images. In this case I can avoid people uploading large data into my database and can reduce viruses being uploaded to the base. 
 * Issue with the bolean keto button on upload recipe page which in the lack of time led me to the conclusion to just use a string instead a thick box true or false boolean. In the end i changed the keto recipe to a yes or no drop down select field and string
+* On the final deployment of the project, Heroku was not deploying my project, so got in touch with the student support where they advise me to update again my requirements.txt with the full list, which work, but in the same time totally destroyed my code, to the extend it was broken in every way it could be. 
+Fixed and changed all session.get(‘existing_user’) in Edit Upload and Login classes and tested the site if it works. When I tried to deploy again in Heroku There was another exact same error message which was fixed before. So got in touch with Student Tutors again. 
+Installed and reinstalled wireframes and forms, disconnected GitHub and Connected again with Heroku. In the end those files were causing the problems which were extras from installations. It affected my werkzeug hashing code but doesn't affected in the  database. 
+Most importantly could deployed my project ASAP
+
 
 **Usertesting**
 * The site works in every different and media been added to the styling, it has been tested 
@@ -110,4 +117,4 @@ How to use SelectMultipleField, although i didn’t end up using it: [SelectMult
 - My project was built and it is stored on Github I created a master branch for the project in the following way: Go to your GitHub account and select “New Repository” from the drop down menu Next to the owner after the / add a short name to repository Select add README file and add .gitignore file Create repository
 - If you wish to clone: On GitHub navigate to the main page of the repository Click clone or download green button Click on the copy icon at the end of the https:// link Open the terminal Navigate to the location where the repository is going to be stored With the repository URL enter the following $ git clone https://github.com/ZitaBalint/Third-Milestone-Project-Cookbook.git Press enter and the local repository was created
 - Please follow this link to [Get started with Heroku](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true)
-- My Recipe sharing website [Made To Share](https://cookbook-milestone-project.herokuapp.com/recipe/60a5b4e2d32125a74b678dc6) was deployed in Horuko and can be reached by clickinh on the link 
+- My Recipe sharing website [Made To Share](https://cookbook-milestone-project.herokuapp.com/) was deployed in Heroku and can be reached by clickinh on the link 
