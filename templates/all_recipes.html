@@ -1,33 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<!-- Header for the page-->
 <h2 class="recipe-header text-center section-heading text-uppercase">Recipes</h2>
 
 
+<!-- Card for the recipes to display-->
 <div class="container recipes-container">
     <div class="row ">
-{% for recipe in recipes %}
-    <div class="card-deck col-lg-3 col-md-6 mb-4">
-        <div class="card ">
-            <div class="card-img allrec-img">
-            <img class="card-img-top" src="{{ recipe.image }}" alt="">
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">{{ recipe.recipe_title }}</h4>
-                <h6 class="card-author">By: {{ recipe.author }}</h6>
-                <p class="card-text">{{ recipe.recipe_story }}</p>
-            </div>
-            <div class="card-footer">
-                <a href="{{ url_for('recipe', recipe_id=recipe._id) }} " class="btn btn-primary">View recipe</a>
+        <!-- find recipe in recipes to display searched data-->
+        {% for recipe in recipes %}
+        <div class="card-deck col-lg-3 col-md-6 mb-4">
+            <div class="card ">
+                <!-- Card image-->
+                <div class="card-img allrec-img">
+                    <img class="card-img-top" src="{{ recipe.image }}" alt="">
+                </div>
+                <!-- Card body recipe title, author and story-->
+                <div class="card-body">
+                    <h4 class="card-title">{{ recipe.recipe_title }}</h4>
+                    <h6 class="card-author">By: {{ recipe.author }}</h6>
+                    <p class="card-text">{{ recipe.recipe_story }}</p>
+                </div>
+                <!-- Card footer-->
+                <div class="card-footer">
+                    <a href="{{ url_for('recipe', recipe_id=recipe._id) }} " class="btn btn-primary">View recipe</a>
+                </div>
             </div>
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 </div>
-    
-
-   
 
 {% endblock %}
