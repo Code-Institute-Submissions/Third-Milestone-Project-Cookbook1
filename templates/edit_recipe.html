@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+<!-- Page header above edit section -->
 <h3 class="text-center section-heading text-uppercase">Edit Recipe</h3>
-<div class="card form-card text-center col-md-8 offset-md-2">
+<div class="card upload-card form-card text-center col-xl-8 offset-xl-2">
     <div class="form-container container">
         <form method="post" action="">
             {{ form.csrf_token }}
@@ -47,20 +48,21 @@
                 {% endfor %}
             </div>
             <!-- Cathegory field -->
-            <div class="form-floating mb-3">
-                {{ form.categories.label(class="form-check-label") }}
-                {{ form.categories(class="form-check-input") }}
 
+            <div class="form-group mb-3">
+                {{ form.categories.label(class="form-check-label") }}
+                {{ form.categories(class="form-control form-check-input-mb") }}
             </div>
             <!-- Keto field -->
-            <div class="form-check">
-                {{ form.keto_recipes(class="form-check-input") }}
-                {{  form.keto_recipes.label(class="form-check-label") }}
+            <div class="form-group mb-3">
+                {{ form.keto_recipes.label(class="form-check-label") }}
+                {{ form.keto_recipes(class="form-control form-check-input-mb") }}
             </div>
-            <!-- Upload button -->
+            <!-- Save button -->
             <div class="form-floating">
                 {{  form.save_recipe(class="btn btn-primary") }}
             </div>
+            <!-- Cancel button -->
             <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="btn  btn-primary btn-md text-uppercase" type="button" id="button-cancel">Cancel</a>
         </form>
     </div>
