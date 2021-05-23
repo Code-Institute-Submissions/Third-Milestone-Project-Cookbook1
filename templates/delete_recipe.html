@@ -3,45 +3,58 @@
 {%block content%}
 
 
-<div class="text-center col-md-8 offset-md-2">
-    <div class=" container">
+<div class="container col-xl-6 offset-xl-3">
+    <div class="row recipe-row">
         {% if session["existing_user"] == recipe.author %}
         <div class="row delete-recipe">
             <div class="delete-message alert">
-                <h3 class="section-heading text-uppercase" style="color: #FF0800;" >Are you sure you want to delete the following recipe?</h3>
+                <!-- Alert message to double check if required deleting -->
+                <h3 class="section-heading text-uppercase" style="color: #FF0800;">Are you sure you want to delete the
+                    following recipe?</h3>
                 <P>Once recipe is deleted, it can't be restored!</P>
             </div>
             <form method="post" action="">
                 {{ form.csrf_token }}
-            <div class="form-floating">
-                {{  form.delete_recipe(class="btn delete-btn btn-primary") }}
-            </div>
+                <div class="form-floating">
+                    <!-- Delete recipe when confirmed -->
+                    {{  form.delete_recipe(class="btn delete-btn btn-danger") }}
+                </div>
             </form>
-            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="btn  btn-primary btn-md text-uppercase" type="button" id="button-cancel">Cancel</a>
+            <!-- Cancel button and returning back to recipe if don't want to delete-->
+            <a href="{{ url_for('recipe', recipe_id=recipe._id) }}" class="btn  btn-primary btn-md text-uppercase"
+                type="button" id="button-cancel">Cancel</a>
         </div>
         {% endif %}
-        <!-- Image field -->
-        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="img-fluid">
-        <row class="recipe-header">
-            <!-- Recipe title field -->
-        <h3 class="text-center section-heading">{{ recipe.recipe_title }}</h3>
-        <!-- Recipe author field -->
-        <h5 class="text-center section-heading">Posted by: {{ recipe.author }}</h5>
-        <!-- Recipe Story field -->
-        <P class="recipe-story text-muted">{{ recipe.recipe_story }}</P>
-        </row>    
-        <div class="container">
+        <!-- Displaying recipe under the worning message and delete button for visual-->
+        <div class="card">
+            <!-- Image field -->
+            <div class="card-img recipe-card-image">
+                <img class="card-img-top" src="{{ recipe.image }}" alt="{{ recipe.title }}" class="img-fluid">
+            </div>
+            <div class="card-header">
+                <!-- Recipe title field -->
+                <h3 class="section-heading">{{ recipe.recipe_title }}</h3>
+                <!-- Recipe author field -->
+                <h5 class="section-heading">Posted by: {{ recipe.author }}</h5>
+                <!-- Recipe Story field -->
+                <P class="recipe-story text-muted">{{ recipe.recipe_story }}</P>
+            </div>
+            <div class="card-body">
 
-            <!-- Ingredients field -->
-            <h5 class="section-heading">Ingredients:</h5>
-            <p class="text-muted">{{ recipe.ingredients}}</p>
-            
-             <!-- Steps field -->
-            <h5 class="section-heading">Steps:</h5>
-            <p class="text-muted">{{ recipe.steps }}</p>
-        </div>  
+                <!-- Ingredient list in ingredients-->
+                <h5 class="section-heading">Ingredients:</h5>
+                <ul class="ingredints-list">
+                    {% for ingredient in recipe.ingredients.split(",") %}
+                    <li class="text-muted">{{ingredient}}</li>
+                    {% endfor %}
+                </ul>
+                <!-- Steps field -->
+                <h5 class="section-heading">Steps:</h5>
+                <p class="text-muted">{{ recipe.steps }}</p>
+            </div>
+        </div>
     </div>
 </div>
 
-
 {% endblock %}
+
