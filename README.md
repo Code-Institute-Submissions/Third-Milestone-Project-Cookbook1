@@ -73,7 +73,7 @@ The bases of the website was downloaded from [Start Bootstrap/theme/agency](http
 
 ![Sign In](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762980/3rd%20project/IMG_0271_ctf54w.jpg)
 
-!Register](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762980/3rd%20project/IMG_0272_ihyfkl.jpg)
+![Register](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762980/3rd%20project/IMG_0272_ihyfkl.jpg)
 
 ![Upload Recipe](https://res.cloudinary.com/dbwtdwgnt/image/upload/v1621762979/3rd%20project/IMG_0270_xj3ljg.jpg)
 
@@ -88,3 +88,26 @@ Imager for the base.html was downloaded from [Unsplash](https://unsplash.com/pho
 With the documentation on Flask I was using the following website: [Flask](https://flask.palletsprojects.com/en/2.0.x/)
 Many search would come with flask and python questions on the following website: [GeekforGeeks](https://www.geeksforgeeks.org/)
 How to use SelectMultipleField, although i didn’t end up using it: [SelectMultiple](https://stackoverflow.com/questions/13558345/flask-app-using-wtforms-with-selectmultiplefield)
+
+#### Testing and usertesting :
+**Validators**
+* [HTML](https://validator.w3.org/)
+*[Python](https://extendsclass.com/python-tester.html)
+
+**Bugs**:
+*The site was testing regularly, after each class ot app was created and debugger was run constantly on the site. I have had a bug during building the @ all_recipes function as it was not returning all the data from the recipes when it was submitted, it either returned all the recipes or it returned only one category. After reading the documentation and looking at the code on stack overflow I figured the right way to structure the app.
+* During login page build the return was either successfully registered and returned to the signed in page or got an error message, figured to swap the code other way around and first declare if the user is not existing then declare that later in the @app route.
+* Also used Breakpoint to debug the code most of the time, which helped to know the when is the point my code is executed so it most of the time lead to an answer, instead of searching through massive amount of answers and codes from the web
+* Installed and deleted many elements of FlaskForms and wtforms, as found an easier way to deal with the issues. Eg: stacked with the way to upload the image in the recipe and use path. In the end my mentor pointed me in the right direction and gave me a hint to use url to upload images. In this case I can avoid people uploading large data into my database and can reduce viruses being uploaded to the base. 
+* Issue with the bolean keto button on upload recipe page which in the lack of time led me to the conclusion to just use a string instead a thick box true or false boolean. In the end i changed the keto recipe to a yes or no drop down select field and string
+
+**Usertesting**
+* The site works in every different and media been added to the styling, it has been tested 
+* User feedback is positive and easy to navigate on site
+* During user testing the biggest issue i found was the keto recipe button which later was changed to string and selectfiels 
+
+## Deployments
+- My project was built and it is stored on Github I created a master branch for the project in the following way: Go to your GitHub account and select “New Repository” from the drop down menu Next to the owner after the / add a short name to repository Select add README file and add .gitignore file Create repository
+- If you wish to clone: On GitHub navigate to the main page of the repository Click clone or download green button Click on the copy icon at the end of the https:// link Open the terminal Navigate to the location where the repository is going to be stored With the repository URL enter the following $ git clone https://github.com/ZitaBalint/Third-Milestone-Project-Cookbook.git Press enter and the local repository was created
+- Please follow this link to [Get started with Heroku](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true)
+- My Recipe sharing website [Made To Share](https://cookbook-milestone-project.herokuapp.com/recipe/60a5b4e2d32125a74b678dc6) was deployed in Horuko and can be reached by clickinh on the link 
