@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField
-from wtforms import StringField, BooleanField, PasswordField, SubmitField, TextAreaField, SelectField
+from wtforms import (StringField, BooleanField, PasswordField, SubmitField,
+                     TextAreaField, SelectField)
 from wtforms import validators
 
 
@@ -12,8 +12,9 @@ class RegistrationForm(FlaskForm):
                              [validators.InputRequired(),
                               validators.Length(min=5, max=15)])
     confirm_password = PasswordField('Confirm Password',
-                                     [validators.EqualTo('password',
-                                                         message="Passwords should match")])
+                                     [validators.EqualTo
+                                      ('password',
+                                       message="Passwords should match")])
     submit = SubmitField('Register')
 
 
@@ -35,16 +36,18 @@ class UploadRecipeForm(FlaskForm):
     recipe_story = TextAreaField('Add a short story...', [
                                  validators.DataRequired(),
                                  validators.Length(min=5, max=200)])
-    ingredients = StringField('Add ingredients by line', [
+    ingredients = TextAreaField('Add ingredients separated by commas', [
                               validators.InputRequired()])
     steps = TextAreaField('Step by step method', [
                           validators.DataRequired(),
                           validators.Length(min=5, max=1300)])
-    categories = SelectField('Recipe category (Please select at least one)',
+    categories = SelectField('Recipe category, please select one!)',
                              choices=[('breakfast', 'Breakfast'),
                                       ('main', 'Main Meal'),
                                       ('snacks', 'Snacks')])
-    keto_recipes = BooleanField('Is this a keto recipe?')
+    keto_recipes = SelectField('Is this a keto recipe?',
+                               choices=[('yes', 'Yes'),
+                                        ('no', 'No')])
     upload_recipe = SubmitField('Upload Recipe')
 
 
@@ -63,16 +66,18 @@ class EditRecipeForm(FlaskForm):
     recipe_story = TextAreaField('Add a short story...', [
                                  validators.DataRequired(),
                                  validators.Length(min=5, max=200)])
-    ingredients = StringField('Add ingredients by line', [
+    ingredients = TextAreaField('Add ingredients separated by commas', [
                               validators.InputRequired()])
     steps = TextAreaField('Step by step method', [
                           validators.DataRequired(),
                           validators.Length(min=5, max=1300)])
-    categories = SelectField('Recipe category (Please select at least one)',
+    categories = SelectField('Recipe category, please select one!',
                              choices=[('breakfast', 'Breakfast'),
                                       ('main', 'Main Meal'),
                                       ('snacks', 'Snacks')])
-    keto_recipes = BooleanField('Is this a keto recipe?')
+    keto_recipes = SelectField('Is this a keto recipe?',
+                               choices=[('yes', 'Yes'),
+                                        ('no', 'No')])
     save_recipe = SubmitField('Save Changes')
 
 
