@@ -221,11 +221,11 @@ def recipe(recipe_id):
 
 
 @app.errorhandler(404)
-def error_404():
-    return render_template('404_error.html')
+def handle_404():
+    return render_template('404.html')
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=False)
