@@ -170,13 +170,14 @@ def search():
 @app.route("/edit_recipe/<recipe_id>",  methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     form = EditRecipeForm(request.form)
-    recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    recipe_data = mongo.db.recipes.find_one_or_404(
+        {'_id': ObjectId(recipe_id)})
     # If user logged in allow them to edit their recipe
     if request.method == "GET":
         form = EditRecipeForm(data=recipe_data)
         return render_template('edit_recipe.html', recipe=recipe_data,
                                form=form)
-    # On submit enter editted data to database
+        # On submit enter editted data to database
     if request.method == "POST" and form.validate_on_submit():
         recipe = {
             "$set": {
@@ -197,7 +198,8 @@ def edit_recipe(recipe_id):
 @app.route("/delete_recipe/<recipe_id>",  methods=["GET", "POST"])
 def delete_recipe(recipe_id):
     form = DeleteRecipeForm(request.form)
-    recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    recipe_data = mongo.db.recipes.find_one_or_404(
+        {'_id': ObjectId(recipe_id)})
     # Allow author to delete their recipe
     if request.method == "GET":
         form = DeleteRecipeForm(data=recipe_data)
@@ -216,6 +218,11 @@ def recipe(recipe_id):
     # Pull specific recipe from the database
     recipe_data = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
     return render_template("recipe.html", recipe=recipe_data)
+
+
+@app.errorhandler(404)
+def error_404():
+    return render_template('404_error.html')
 
 
 if __name__ == "__main__":
