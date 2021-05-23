@@ -40,7 +40,7 @@ class UploadRecipeForm(FlaskForm):
                               validators.InputRequired()])
     steps = TextAreaField('Step by step method', [
                           validators.DataRequired(),
-                          validators.Length(min=5, max=1300)])
+                          validators.Length(min=5, max=2200)])
     categories = SelectField('Recipe category, please select one!)',
                              choices=[('breakfast', 'Breakfast'),
                                       ('main', 'Main Meal'),
@@ -70,7 +70,7 @@ class EditRecipeForm(FlaskForm):
                               validators.InputRequired()])
     steps = TextAreaField('Step by step method', [
                           validators.DataRequired(),
-                          validators.Length(min=5, max=1300)])
+                          validators.Length(min=5, max=2200)])
     categories = SelectField('Recipe category, please select one!',
                              choices=[('breakfast', 'Breakfast'),
                                       ('main', 'Main Meal'),
